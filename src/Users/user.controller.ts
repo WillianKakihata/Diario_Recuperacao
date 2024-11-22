@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserAlreadyExistsException } from "./exceptions/user-already-exists.exceptions";
@@ -35,7 +35,7 @@ export class UsersController {
         }
     }
 
-    @Post(':username')
+    @Delete(':username')
     @HttpCode(204)
     async delete(@Param('username') username: string){
         try {
