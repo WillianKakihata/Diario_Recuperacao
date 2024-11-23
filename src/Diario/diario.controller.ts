@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
 import { DiarioService } from "./diario.service";
 import { CreateDiarioDto } from "./dto/create-diario.dto";
 import { Diarios } from "./schemas/diario.schema";
 import { UpdateDiarioDto } from "./dto/update-diario.dto";
+import { AuthGuard } from "src/Auth/auth.guard";
 
-
+@UseGuards(AuthGuard)
 @Controller('diarios')
 export class DiarioController {
     constructor(private readonly DiarioService: DiarioService){}
