@@ -5,5 +5,5 @@ Itens a serem considerados:
 [X] CRUD de Usuários
 [X] CRUD de qualquer outra entidade que desejar.
 [X] Autenticação
-[] Pelo menos um nível de autorização
+[X] Pelo menos um nível de autorização
 [] Uma rota com Cache

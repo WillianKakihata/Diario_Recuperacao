@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
+import { Bind, Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, UseGuards, UseInterceptors } from "@nestjs/common";
 import { DiarioService } from "./diario.service";
 import { CreateDiarioDto } from "./dto/create-diario.dto";
 import { Diarios } from "./schemas/diario.schema";
@@ -7,6 +7,7 @@ import { AuthGuard } from "src/Auth/auth.guard";
 import { Role } from "src/Roles/role.enum";
 import { Roles } from "src/Roles/roles.decorator";
 import { RolesGuard } from "src/Roles/roles.guard";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('diarios')
@@ -59,6 +60,18 @@ export class DiarioController {
             throw new HttpException({"message": "ERRO AO DELETAR O REGISTRO DO DIARIO"}, HttpStatus.BAD_REQUEST) 
         }
     }
+
+    
+    @Get('cache')
+    async findAllCache(): Promise<Diarios[]>{
+        try {
+            const data =  this.DiarioService.findAllCache()
+            return data;
+        } catch (error) {
+            throw new HttpException({"message": "ERRO AO ENCONTRAR OS REGISTROS"}, HttpStatus.BAD_REQUEST) 
+        }
+    }
+
 
 
 }

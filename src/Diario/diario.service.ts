@@ -3,9 +3,11 @@ import { Model } from "mongoose";
 import { Diarios } from "./schemas/diario.schema";
 import { CreateDiarioDto } from "./dto/create-diario.dto";
 import { UpdateDiarioDto } from "./dto/update-diario.dto";
+import { CacheService } from "src/Cache/cache.service";
 
 export class DiarioService{
-    constructor(@InjectModel(Diarios.name) private readonly DiariosModel: Model<Diarios>) {}
+    constructor(@InjectModel(Diarios.name) private readonly DiariosModel: Model<Diarios>,
+                    private readonly cacheService: CacheService,) {}
 
     async create(CreateDiarioDto: CreateDiarioDto): Promise<Diarios> {
         const cards = new this.DiariosModel(CreateDiarioDto)
@@ -22,6 +24,12 @@ export class DiarioService{
         } catch (error) {
             return null
         }
+    }
+
+    async findAllCache(): Promise<any> {
+        const cacheKey = 'id'
+        const registro =  await this.cacheService.getCache<Diarios[]>(cacheKey, () => 
+            this.DiariosModel.find().exec())
     }
 
     async update(id: string, UpdateDiarioDto: UpdateDiarioDto): Promise<Diarios> {
