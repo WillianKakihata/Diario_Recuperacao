@@ -1,11 +1,14 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
+import { Bind, Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
 import { DiarioService } from "./diario.service";
 import { CreateDiarioDto } from "./dto/create-diario.dto";
 import { Diarios } from "./schemas/diario.schema";
 import { UpdateDiarioDto } from "./dto/update-diario.dto";
 import { AuthGuard } from "src/Auth/auth.guard";
+import { Role } from "src/Roles/role.enum";
+import { Roles } from "src/Roles/roles.decorator";
+import { RolesGuard } from "src/Roles/roles.guard";
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('diarios')
 export class DiarioController {
     constructor(private readonly DiarioService: DiarioService){}
@@ -28,6 +31,7 @@ export class DiarioController {
         }
     }
 
+    @Roles(Role.Admin)
     @Get(':id')
     FindOne(@Param('id') id: string): Promise<Diarios>{
         try {
