@@ -1,0 +1,38 @@
+1. AuthController (/auth)
+POST /auth/login
+Realiza login utilizando username e password.
+-------------------------------------------------------------------
+2. DiarioController (/diarios)
+POST /diarios
+Cria um novo registro no diário.
+
+GET /diarios
+Retorna todos os registros do diário.
+
+GET /diarios/:id
+Retorna um registro específico do diário pelo id.
+
+POST /diarios/:id
+Atualiza um registro do diário com o id fornecido.
+
+DELETE /diarios/:id
+Deleta um registro do diário pelo id.
+
+GET /diarios/cache
+Retorna todos os registros do diário utilizando cache.
+-------------------------------------------------------------------
+3. UsersController (/user)
+POST /user
+Cria um novo usuário.
+
+POST /user/:username
+Atualiza um usuário específico pelo username.
+
+DELETE /user/:username
+Deleta um usuário específico pelo username.
+
+GET /user
+Retorna todos os usuários.
+
+GET /user/:username
+Retorna um usuário específico pelo username.
